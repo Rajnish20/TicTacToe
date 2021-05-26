@@ -94,6 +94,14 @@ public class TicTacToeGame {
                 return board;
             }
         }
+
+        for (int i = 0; i < 9; i++) {
+            if (board[i] == ' ' && winMove(i, board, player)) {
+                board[i] = computer;
+                return board;
+            }
+        }
+        return board;
     }
 
     public static void main(String[] args) {
