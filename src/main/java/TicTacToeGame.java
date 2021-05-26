@@ -54,6 +54,15 @@ public class TicTacToeGame {
         System.out.println("Player : " + player);
         System.out.println("Computer : " + computer);
         ticTacToe.showBoard(board);
-        board = ticTacToe.userInput(board, player);
+        int options = (int) (Math.random() * 2);
+        if(options == 0)
+        {
+            System.out.println("You will play first");
+        }
+        else
+        {
+            System.out.println("Computer will play first");
+        }
+
     }
 }
