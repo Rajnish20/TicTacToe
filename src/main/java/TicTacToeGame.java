@@ -142,52 +142,58 @@ public class TicTacToeGame {
 
     public static void main(String[] args) {
         System.out.println("welcome to TicTacToe");
-        TicTacToeGame ticTacToe = new TicTacToeGame();
-        char[] board = ticTacToe.createBoard();
-        char computer;
-        char player = ticTacToe.chooseLetter();
-        computer = (player == 'X') ? '0' : 'X';
-        System.out.println("Player : " + player);
-        System.out.println("Computer : " + computer);
-        ticTacToe.showBoard(board);
-        int options = (int) (Math.random() * 2);
-        if (options == 0) {
-            System.out.println("You will play first");
-        } else {
-            System.out.println("Computer will play first");
-        }
-        boolean play = true;
-        while (play) {
+        Scanner myScan = new Scanner(System.in);
+        char ans;
+        do {
+            TicTacToeGame ticTacToe = new TicTacToeGame();
+            char[] board = ticTacToe.createBoard();
+            char computer;
+            char player = ticTacToe.chooseLetter();
+            computer = (player == 'X') ? '0' : 'X';
+            System.out.println("Player : " + player);
+            System.out.println("Computer : " + computer);
+            ticTacToe.showBoard(board);
+            int options = (int) (Math.random() * 2);
             if (options == 0) {
-                board = ticTacToe.userInput(board, player);
-                ticTacToe.showBoard(board);
-                System.out.println("******************************");
-                play = ticTacToe.winCheck(board, player, computer);
-                if (play) {
-                    board = ticTacToe.cpuInput(board, player, computer);
-                    ticTacToe.showBoard(board);
-                    System.out.println("******************************");
-                    play = ticTacToe.winCheck(board, player, computer);
-                    if (!play)
-                        System.out.println("Game Over");
-                } else
-                    System.out.println("Game Over");
+                System.out.println("You will play first");
             } else {
-                board = ticTacToe.cpuInput(board, player, computer);
-                ticTacToe.showBoard(board);
-                System.out.println("******************************");
-                play = ticTacToe.winCheck(board, player, computer);
-                if (play) {
+                System.out.println("Computer will play first");
+            }
+            boolean play = true;
+            while (play) {
+                if (options == 0) {
                     board = ticTacToe.userInput(board, player);
                     ticTacToe.showBoard(board);
                     System.out.println("******************************");
                     play = ticTacToe.winCheck(board, player, computer);
-                    if (!play)
+                    if (play) {
+                        board = ticTacToe.cpuInput(board, player, computer);
+                        ticTacToe.showBoard(board);
+                        System.out.println("******************************");
+                        play = ticTacToe.winCheck(board, player, computer);
+                        if (!play)
+                            System.out.println("Game Over");
+                    } else
                         System.out.println("Game Over");
-                } else
-                    System.out.println("Game Over");
+                } else {
+                    board = ticTacToe.cpuInput(board, player, computer);
+                    ticTacToe.showBoard(board);
+                    System.out.println("******************************");
+                    play = ticTacToe.winCheck(board, player, computer);
+                    if (play) {
+                        board = ticTacToe.userInput(board, player);
+                        ticTacToe.showBoard(board);
+                        System.out.println("******************************");
+                        play = ticTacToe.winCheck(board, player, computer);
+                        if (!play)
+                            System.out.println("Game Over");
+                    } else
+                        System.out.println("Game Over");
+                }
             }
-        }
+            System.out.println("Do you want to play again(y/n) ?");
+            ans = myScan.next().charAt(0);
+        } while (ans == 'Y' || ans == 'y');
 
     }
 }
