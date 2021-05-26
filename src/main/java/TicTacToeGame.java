@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 public class TicTacToeGame {
     Scanner scanner = new Scanner(System.in);
+
     public char[] createBoard() {
         char[] board = new char[9];
         Arrays.fill(board, ' ');
@@ -15,6 +16,15 @@ public class TicTacToeGame {
 
     }
 
+
+    public void showBoard(char[] board) {
+        System.out.println(board[0] + " | " + board[1] + " | " + board[2]);
+        System.out.println("----------");
+        System.out.println(board[3] + " | " + board[4] + " | " + board[5]);
+        System.out.println("----------");
+        System.out.println(board[6] + " | " + board[7] + " | " + board[8]);
+    }
+
     public static void main(String[] args) {
         System.out.println("welcome to TicTacToe");
         TicTacToeGame ticTacToe = new TicTacToeGame();
@@ -24,5 +34,6 @@ public class TicTacToeGame {
         computer = (player == 'X') ? '0' : 'X';
         System.out.println("Player : " + player);
         System.out.println("Computer : " + computer);
+        ticTacToe.showBoard(board);
     }
 }
