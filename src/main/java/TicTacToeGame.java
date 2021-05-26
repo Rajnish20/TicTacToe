@@ -25,6 +25,25 @@ public class TicTacToeGame {
         System.out.println(board[6] + " | " + board[7] + " | " + board[8]);
     }
 
+    public char[] userInput(char[] board, char user) {
+        int input = 0;
+        do {
+            System.out.println("Choose the number 1-9");
+            int location = scanner.nextInt();
+            for (int i = 0; i < board.length; i++) {
+                if (i == location - 1 && board[i] == ' ') {
+                    board[i] = user;
+                    input = 1;
+                    break;
+                }
+            }
+            if (input == 0)
+                System.out.println("Please Enter correct input");
+        } while (input == 0);
+        return board;
+
+    }
+
     public static void main(String[] args) {
         System.out.println("welcome to TicTacToe");
         TicTacToeGame ticTacToe = new TicTacToeGame();
@@ -35,5 +54,6 @@ public class TicTacToeGame {
         System.out.println("Player : " + player);
         System.out.println("Computer : " + computer);
         ticTacToe.showBoard(board);
+        board = ticTacToe.userInput(board, player);
     }
 }
