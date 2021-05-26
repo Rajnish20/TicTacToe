@@ -156,6 +156,38 @@ public class TicTacToeGame {
         } else {
             System.out.println("Computer will play first");
         }
+        boolean play = true;
+        while (play) {
+            if (options == 0) {
+                board = ticTacToe.userInput(board, player);
+                ticTacToe.showBoard(board);
+                System.out.println("******************************");
+                play = ticTacToe.winCheck(board, player, computer);
+                if (play) {
+                    board = ticTacToe.cpuInput(board, player, computer);
+                    ticTacToe.showBoard(board);
+                    System.out.println("******************************");
+                    play = ticTacToe.winCheck(board, player, computer);
+                    if (!play)
+                        System.out.println("Game Over");
+                } else
+                    System.out.println("Game Over");
+            } else {
+                board = ticTacToe.cpuInput(board, player, computer);
+                ticTacToe.showBoard(board);
+                System.out.println("******************************");
+                play = ticTacToe.winCheck(board, player, computer);
+                if (play) {
+                    board = ticTacToe.userInput(board, player);
+                    ticTacToe.showBoard(board);
+                    System.out.println("******************************");
+                    play = ticTacToe.winCheck(board, player, computer);
+                    if (!play)
+                        System.out.println("Game Over");
+                } else
+                    System.out.println("Game Over");
+            }
+        }
 
     }
 }
