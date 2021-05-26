@@ -101,6 +101,23 @@ public class TicTacToeGame {
                 return board;
             }
         }
+        if (board[0] == ' ') {
+            board[0] = computer;
+            return board;
+        }
+        if (board[2] == ' ') {
+            board[2] = computer;
+            return board;
+        }
+        if (board[6] == ' ') {
+            board[6] = computer;
+            return board;
+        }
+        if (board[8] == ' ') {
+            board[8] = computer;
+            return board;
+        }
+
         return board;
     }
 
