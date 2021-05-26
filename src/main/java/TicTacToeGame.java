@@ -44,6 +44,35 @@ public class TicTacToeGame {
 
     }
 
+    public boolean winCheck(char[] board, char player, char computer) {
+        if ((board[0] == player && board[1] == player && board[2] == player) || (board[3] == player && board[4] == player && board[5] == player)
+                || (board[6] == player && board[7] == player && board[8] == player) || (board[0] == player && board[3] == player && board[6] == player)
+                || (board[1] == player && board[4] == player && board[7] == player) || (board[2] == player && board[5] == player && board[8] == player)
+                || (board[0] == player && board[4] == player && board[8] == player) || (board[2] == player && board[4] == player && board[6] == player)) {
+            System.out.println("You won");
+            return false;
+        }
+        if ((board[0] == computer && board[1] == computer && board[2] == computer) || (board[3] == computer && board[4] == computer && board[5] == computer)
+                || (board[6] == computer && board[7] == computer && board[8] == computer) || (board[0] == computer && board[3] == computer && board[6] == computer)
+                || (board[1] == computer && board[4] == computer && board[7] == computer) || (board[2] == computer && board[5] == computer && board[8] == computer)
+                || (board[0] == computer && board[4] == computer && board[8] == computer) || (board[2] == computer && board[4] == computer && board[6] == computer)) {
+            System.out.println("Computer won");
+            return false;
+        }
+        int flag = 0;
+        for (int i = 0; i < 9; i++) {
+            if (board[i] == ' ') {
+                flag = 1;
+                break;
+            }
+        }
+        if (flag == 0) {
+            System.out.println("Match Tied");
+            return false;
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
         System.out.println("welcome to TicTacToe");
         TicTacToeGame ticTacToe = new TicTacToeGame();
@@ -55,12 +84,9 @@ public class TicTacToeGame {
         System.out.println("Computer : " + computer);
         ticTacToe.showBoard(board);
         int options = (int) (Math.random() * 2);
-        if(options == 0)
-        {
+        if (options == 0) {
             System.out.println("You will play first");
-        }
-        else
-        {
+        } else {
             System.out.println("Computer will play first");
         }
 
