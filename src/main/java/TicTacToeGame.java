@@ -73,6 +73,29 @@ public class TicTacToeGame {
         return true;
     }
 
+    public boolean winning(char[] tempBoard, char mark) {
+        return (tempBoard[0] == mark && tempBoard[1] == mark && tempBoard[2] == mark) || (tempBoard[3] == mark && tempBoard[4] == mark && tempBoard[5] == mark)
+                || (tempBoard[6] == mark && tempBoard[7] == mark && tempBoard[8] == mark) || (tempBoard[0] == mark && tempBoard[3] == mark && tempBoard[6] == mark)
+                || (tempBoard[1] == mark && tempBoard[4] == mark && tempBoard[7] == mark) || (tempBoard[2] == mark && tempBoard[5] == mark && tempBoard[8] == mark)
+                || (tempBoard[0] == mark && tempBoard[4] == mark && tempBoard[8] == mark) || (tempBoard[2] == mark && tempBoard[4] == mark && tempBoard[6] == mark);
+    }
+
+    public boolean winMove(int location, char[] board, char mark) {
+        char[] tempBoard = new char[board.length];
+        System.arraycopy(board, 0, tempBoard, 0, board.length);
+        tempBoard[location] = mark;
+        return winning(tempBoard, mark);
+    }
+
+    public char[] cpuInput(char[] board, char player, char computer) {
+        for (int i = 0; i < 9; i++) {
+            if (board[i] == ' ' && winMove(i, board, computer)) {
+                board[i] = computer;
+                return board;
+            }
+        }
+    }
+
     public static void main(String[] args) {
         System.out.println("welcome to TicTacToe");
         TicTacToeGame ticTacToe = new TicTacToeGame();
