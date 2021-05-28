@@ -44,21 +44,25 @@ public class TicTacToeGame {
 
     }
 
-    public boolean winCheck(char[] board, char player, char computer) {
-        if ((board[0] == player && board[1] == player && board[2] == player) || (board[3] == player && board[4] == player && board[5] == player)
-                || (board[6] == player && board[7] == player && board[8] == player) || (board[0] == player && board[3] == player && board[6] == player)
-                || (board[1] == player && board[4] == player && board[7] == player) || (board[2] == player && board[5] == player && board[8] == player)
-                || (board[0] == player && board[4] == player && board[8] == player) || (board[2] == player && board[4] == player && board[6] == player)) {
-            System.out.println("You won");
-            return false;
+    public boolean winCheck(char[] board, char letter) {
+
+        /*
+         *Created 2D array to store the winning positions
+         */
+        int[][] winningPlaces = new int[][]{{0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 3, 6}, {1, 4, 7}, {2, 5, 8}, {0, 4, 8}, {2, 4, 6}};
+
+        /*
+         *Loop to check any winning conditions satisfies
+         * if yes then return false to finish the game
+         */
+        for (int[] win : winningPlaces) {
+            if (board[win[0]] == letter && board[win[1]] == letter && board[win[2]] == letter)
+                return false;
         }
-        if ((board[0] == computer && board[1] == computer && board[2] == computer) || (board[3] == computer && board[4] == computer && board[5] == computer)
-                || (board[6] == computer && board[7] == computer && board[8] == computer) || (board[0] == computer && board[3] == computer && board[6] == computer)
-                || (board[1] == computer && board[4] == computer && board[7] == computer) || (board[2] == computer && board[5] == computer && board[8] == computer)
-                || (board[0] == computer && board[4] == computer && board[8] == computer) || (board[2] == computer && board[4] == computer && board[6] == computer)) {
-            System.out.println("Computer won");
-            return false;
-        }
+
+        /*
+         *To Check whether game is tied or not
+         */
         int flag = 0;
         for (int i = 0; i < 9; i++) {
             if (board[i] == ' ') {
@@ -73,11 +77,14 @@ public class TicTacToeGame {
         return true;
     }
 
+
     public boolean winning(char[] tempBoard, char mark) {
-        return (tempBoard[0] == mark && tempBoard[1] == mark && tempBoard[2] == mark) || (tempBoard[3] == mark && tempBoard[4] == mark && tempBoard[5] == mark)
-                || (tempBoard[6] == mark && tempBoard[7] == mark && tempBoard[8] == mark) || (tempBoard[0] == mark && tempBoard[3] == mark && tempBoard[6] == mark)
-                || (tempBoard[1] == mark && tempBoard[4] == mark && tempBoard[7] == mark) || (tempBoard[2] == mark && tempBoard[5] == mark && tempBoard[8] == mark)
-                || (tempBoard[0] == mark && tempBoard[4] == mark && tempBoard[8] == mark) || (tempBoard[2] == mark && tempBoard[4] == mark && tempBoard[6] == mark);
+        int[][] winningPlaces = new int[][]{{0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 3, 6}, {1, 4, 7}, {2, 5, 8}, {0, 4, 8}, {2, 4, 6}};
+        for (int[] win : winningPlaces) {
+            if (tempBoard[win[0]] == mark && tempBoard[win[1]] == mark && tempBoard[win[2]] == mark)
+                return true;
+        }
+        return false;
     }
 
     public boolean winMove(int location, char[] board, char mark) {
@@ -88,6 +95,9 @@ public class TicTacToeGame {
     }
 
     public char[] cpuInput(char[] board, char player, char computer) {
+        /*
+         *Checking If computer can win or not
+         */
         for (int i = 0; i < 9; i++) {
             if (board[i] == ' ' && winMove(i, board, computer)) {
                 board[i] = computer;
@@ -95,47 +105,48 @@ public class TicTacToeGame {
             }
         }
 
+        /*
+         *Checking if opponent is winning then block
+         */
         for (int i = 0; i < 9; i++) {
             if (board[i] == ' ' && winMove(i, board, player)) {
                 board[i] = computer;
                 return board;
             }
         }
-        if (board[0] == ' ') {
-            board[0] = computer;
-            return board;
+
+        /*
+         *Check if any of the corners available then move to that position
+         */
+        int[] corners = {0, 2, 6, 8};
+        for(int i = 0; i < 4; i++)
+        {
+            if(board[i] == ' ')
+            {
+                board[corners[i]] = computer;
+                return board;
+            }
         }
-        if (board[2] == ' ') {
-            board[2] = computer;
-            return board;
-        }
-        if (board[6] == ' ') {
-            board[6] = computer;
-            return board;
-        }
-        if (board[8] == ' ') {
-            board[8] = computer;
-            return board;
-        }
+
+        /*
+         * if centre is available then move to centre
+         */
         if (board[4] == ' ') {
             board[4] = computer;
             return board;
         }
-        if (board[1] == ' ') {
-            board[1] = computer;
-            return board;
-        }
-        if (board[3] == ' ') {
-            board[3] = computer;
-            return board;
-        }
-        if (board[5] == ' ') {
-            board[5] = computer;
-            return board;
-        }
-        if (board[7] == ' ') {
-            board[7] = computer;
-            return board;
+
+        /*
+         *Checking if any of sides available then move to that position
+         */
+        int[] sides = {1, 3, 5, 7};
+        for(int i = 0; i < 4; i++)
+        {
+            if(board[sides[i]] == ' ')
+            {
+                board[i] = computer;
+                return board;
+            }
         }
         return board;
     }
@@ -165,32 +176,33 @@ public class TicTacToeGame {
                     board = ticTacToe.userInput(board, player);
                     ticTacToe.showBoard(board);
                     System.out.println("******************************");
-                    play = ticTacToe.winCheck(board, player, computer);
+                    play = ticTacToe.winCheck(board, player);
                     if (play) {
                         board = ticTacToe.cpuInput(board, player, computer);
                         ticTacToe.showBoard(board);
                         System.out.println("******************************");
-                        play = ticTacToe.winCheck(board, player, computer);
+                        play = ticTacToe.winCheck(board, computer);
                         if (!play)
-                            System.out.println("Game Over");
+                            System.out.println("Computer Won");
                     } else
-                        System.out.println("Game Over");
+                        System.out.println("Player Won");
                 } else {
                     board = ticTacToe.cpuInput(board, player, computer);
                     ticTacToe.showBoard(board);
                     System.out.println("******************************");
-                    play = ticTacToe.winCheck(board, player, computer);
+                    play = ticTacToe.winCheck(board, computer);
                     if (play) {
                         board = ticTacToe.userInput(board, player);
                         ticTacToe.showBoard(board);
                         System.out.println("******************************");
-                        play = ticTacToe.winCheck(board, player, computer);
+                        play = ticTacToe.winCheck(board, player);
                         if (!play)
-                            System.out.println("Game Over");
+                            System.out.println("You Won");
                     } else
-                        System.out.println("Game Over");
+                        System.out.println("Computer Won");
                 }
             }
+            System.out.println("Game Over");
             System.out.println("Do you want to play again(y/n) ?");
             ans = myScan.next().charAt(0);
         } while (ans == 'Y' || ans == 'y');
